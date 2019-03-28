@@ -12,6 +12,7 @@ public class LoginForm extends JFrame{
     private JButton registerButton;
     private JTextField textField1;
     private JTextField textField2;
+    private JButton adminLoginButton;
 
     public LoginForm(){
         this.add(rootPanel);

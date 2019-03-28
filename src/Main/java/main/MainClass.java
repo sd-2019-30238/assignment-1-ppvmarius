@@ -1,6 +1,8 @@
 package main;
 
+import dao.AdminDAO;
 import dao.ClientDAO;
+import model.Admin;
 import model.Client;
 import view.LoginForm;
 
@@ -13,5 +15,9 @@ public class MainClass {
         System.out.println(persoane);
 
         LoginForm loginForm = new LoginForm();
+
+        AdminDAO adminDAO = new AdminDAO();
+        Admin admin = adminDAO.findByUsernameAndPassword("ppvmarius", "password");
+        System.out.println(admin);
     }
 }

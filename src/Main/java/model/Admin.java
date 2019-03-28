@@ -38,4 +38,9 @@ public class Admin {
     public String getPassword() {
         return password;
     }
+
+    public String toString(){
+        return id + " " + username + " " + password;
+    }
+
 }
