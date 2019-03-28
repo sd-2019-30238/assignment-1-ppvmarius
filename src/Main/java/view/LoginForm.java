@@ -31,7 +31,7 @@ public class LoginForm extends JFrame{
         registerButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                RegisterForm registerForm = new RegisterForm();
             }
         });
     }

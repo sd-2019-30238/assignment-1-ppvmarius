@@ -12,7 +12,7 @@ import java.util.logging.Level;
  * Clasa care face legatura cu tabela Client din baza de date
  */
 public class ClientDAO extends AbstractDAO<Client> {
-    private static final String insertStatement = "INSERT INTO `client`(id, numeClient, address, phone, age, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    private static final String insertStatement = "INSERT INTO `client`(id, personName, address, phone, age, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String updateStatement = "UPDATE `client` SET numeClient = ?, address = ?, phone = ?, age = ?, username = ?, password = ? WHERE id = ?";
 
     /**
