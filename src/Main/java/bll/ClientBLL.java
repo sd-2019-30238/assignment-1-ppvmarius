@@ -24,6 +24,17 @@ public class ClientBLL{
             return null;
     }
 
+    public Client findByUsernameAndPassword(String username, String password){
+        ClientDAO clientDAO = new ClientDAO();
+        Client client = clientDAO.findByUsernameAndPassword(username, password);
+
+        if(client != null) {
+            return client;
+        }else{
+            return null;
+        }
+    }
+
     /**
      * Updateaza clientul cu noile date introduse.
      * @param client

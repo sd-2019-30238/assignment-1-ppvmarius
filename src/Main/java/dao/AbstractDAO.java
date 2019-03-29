@@ -99,7 +99,7 @@ public class AbstractDAO<T> {
         return list;
     }
 
-    private ArrayList<T> createObjects(ResultSet resultSet) {
+    protected ArrayList<T> createObjects(ResultSet resultSet) {
         ArrayList<T> list = new ArrayList<T>();
         try {
             while (resultSet.next()) {

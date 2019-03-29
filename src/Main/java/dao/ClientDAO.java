@@ -5,6 +5,7 @@ import model.Client;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 
@@ -14,6 +15,28 @@ import java.util.logging.Level;
 public class ClientDAO extends AbstractDAO<Client> {
     private static final String insertStatement = "INSERT INTO `client`(id, personName, address, phone, age, username, password) VALUES (?, ?, ?, ?, ?, ?, ?)";
     private static final String updateStatement = "UPDATE `client` SET numeClient = ?, address = ?, phone = ?, age = ?, username = ?, password = ? WHERE id = ?";
+    private static final String findByUserAndPass= "SELECT * FROM `client` WHERE username=? and password=?";
+
+    public Client findByUsernameAndPassword(String username, String password){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.getConnection();
+            statement = connection.prepareStatement(findByUserAndPass);
+            statement.setString(1, username);
+            statement.setString(2, password);
+            resultSet = statement.executeQuery();
+            return this.createObjects(resultSet).get(0);
+        } catch (SQLException e) {
+
+        } finally {
+            ConnectionFactory.close(resultSet);
+            ConnectionFactory.close(statement);
+            ConnectionFactory.close(connection);
+        }
+        return null;
+    }
 
     /**
      * Introduce un client nou in baza de date
