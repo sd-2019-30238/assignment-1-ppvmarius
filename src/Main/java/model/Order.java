@@ -2,18 +2,26 @@ package model;
 
 public class Order {
     private int id;
-    private int idClient;
-    private int idProduct;
-    private int quantity;
+    private String status;
 
-    public Order(int id, int idClient, int idProduct, int quantity){
+    public Order(int id, String status){
         this.id = id;
-        this.idClient = idClient;
-        this.idProduct = idProduct;
-        this.quantity = quantity;
+        this.status = status;
     }
 
-    public Order(){
-        this(0,0,0,0);
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
