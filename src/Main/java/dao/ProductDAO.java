@@ -13,8 +13,8 @@ import java.util.logging.Level;
  * Face legatura cu tabela Product din baza de date.
  */
 public class ProductDAO extends AbstractDAO<Product> {
-    private static final String insertStatement = "INSERT INTO `product`(id, productName, price, prodDescription, categId, quantity) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String updateStatement = "UPDATE `product` SET productName=?, price=?, prodDescription=?, categId=?, quantity? WHERE id = ?";
+    private static final String insertStatement = "INSERT INTO `product`(id, productName, price, prodDescription, category, quantity, saleType) VALUES (?, ?, ?, ?, ?, ?)";
+    private static final String updateStatement = "UPDATE `product` SET productName=?, price=?, prodDescription=?, category=?, quantity?, saleType=? WHERE id = ?";
 
     /**
      * Insereaza un produs in baza de date
@@ -34,8 +34,9 @@ public class ProductDAO extends AbstractDAO<Product> {
             statement.setString(2, product.getProductName());
             statement.setInt(3, product.getPrice());
             statement.setString(4, product.getProdDescription());
-            statement.setInt(5, product.getCategId());
+            statement.setString(5, product.getCategory());
             statement.setInt(6, product.getQuantity());
+            statement.setInt(7, product.getSaleType());
             rezultat = statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.WARNING, "ProducttDAO:insert " + e.getMessage());
@@ -63,9 +64,10 @@ public class ProductDAO extends AbstractDAO<Product> {
             statement.setString(1, product.getProductName());
             statement.setInt(2, product.getPrice());
             statement.setString(3, product.getProdDescription());
-            statement.setInt(4, product.getCategId());
+            statement.setString(4, product.getCategory());
             statement.setInt(5, product.getQuantity());
-            statement.setInt(6, product.getId());
+            statement.setInt(6, product.getSaleType());
+            statement.setInt(7, product.getId());
             rezultat = statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.WARNING, "ProductDAO:update " + e.getMessage());

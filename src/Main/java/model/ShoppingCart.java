@@ -28,4 +28,8 @@ public class ShoppingCart {
             shopItems.remove(tempProd);
         }
     }
+
+    public void removeAllProducts(){
+        shopItems.clear();
+    }
 }

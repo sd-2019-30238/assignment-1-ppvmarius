@@ -4,7 +4,7 @@ public class Order {
     private int id;
     private String status;
 
-    public Order(int id, String status){
+    public Order(int id, String status){        //String products - pur si simplu le trec acolo.. produse, pret si cantitate!
         this.id = id;
         this.status = status;
     }

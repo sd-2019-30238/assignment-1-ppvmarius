@@ -53,7 +53,7 @@ public class LoginForm extends JFrame{
                 if(admin != null){
                     AdminView adminView = new AdminView();
                 }else{
-                    JOptionPane.showMessageDialog(null, "Wrong username or password"+ passwordField1.getText());
+                    JOptionPane.showMessageDialog(null, "Wrong username or password");
                 }
             }
         });
