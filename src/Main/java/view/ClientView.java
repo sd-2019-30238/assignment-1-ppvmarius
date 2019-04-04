@@ -110,6 +110,14 @@ public class ClientView extends JFrame{
                 orderBLL.insertOrder(1, idClient, "Pending", "Value" + sum);
                 drawTable();
                 shoppingCart.removeAllProducts();
+                JOptionPane.showMessageDialog(null, "Order placed successfully");
+            }
+        });
+
+        viewOrders.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                OrderView orderView = new OrderView(idClient);
             }
         });
     }

@@ -5,7 +5,9 @@ import model.Order;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 public class OrderDAO extends AbstractDAO<Order> {
@@ -34,5 +36,26 @@ public class OrderDAO extends AbstractDAO<Order> {
         return rezultat;
     }
 
+    private static final String findByClientId = "SELECT * FROM `order` WHERE clientId = ?";
+
+    public ArrayList<Order> findByClientId(int clientId){
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ConnectionFactory.getConnection();
+            statement = connection.prepareStatement(findByClientId);
+            statement.setInt(1, clientId);
+            resultSet = statement.executeQuery();
+            return createObjects(resultSet);
+        } catch (SQLException e) {
+
+        } finally {
+            ConnectionFactory.close(resultSet);
+            ConnectionFactory.close(statement);
+            ConnectionFactory.close(connection);
+        }
+        return null;
+    }
 
 }

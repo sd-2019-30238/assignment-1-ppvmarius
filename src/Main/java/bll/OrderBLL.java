@@ -36,6 +36,13 @@ public class OrderBLL {
         }
     }
 
+    public ArrayList<Order> getClientOrders(int clientId){
+        OrderDAO orderDAO = new OrderDAO();
+        ArrayList<Order> orders = orderDAO.findByClientId(clientId);
+        return orders;
+    }
+
+
     public ArrayList<Order> getOrders(){
         OrderDAO orderDAO = new OrderDAO();
         ArrayList<Order> orders = orderDAO.getObjects();
