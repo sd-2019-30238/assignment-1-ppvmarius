@@ -29,6 +29,10 @@ public class ShoppingCart {
         }
     }
 
+    public ArrayList<Product> getShopItems(){
+        return shopItems;
+    }
+
     public void removeAllProducts(){
         shopItems.clear();
     }
