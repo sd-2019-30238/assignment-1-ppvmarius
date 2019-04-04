@@ -31,7 +31,7 @@ public class LoginForm extends JFrame{
                 ClientBLL clientBLL = new ClientBLL();
                 Client client = clientBLL.findByUsernameAndPassword(usernameTextField.getText(), passwordField1.getText());
                 if(client != null) {
-                    ClientView clientView = new ClientView();       //trebuie trimis si id-ul
+                    ClientView clientView = new ClientView(client.getId());       //trebuie trimis si id-ul
                 }else{
                     JOptionPane.showMessageDialog(null, "Wrong username or password!");
                 }

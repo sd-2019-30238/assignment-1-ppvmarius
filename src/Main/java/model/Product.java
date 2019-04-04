@@ -7,10 +7,10 @@ public class Product {
     private String prodDescription;
     private String category;
     private int quantity;
-    private int saleType;
+    private String saleType;
 
-    public Product(){this(0,"",0,"","",0, 0);}
-    public Product(int id, String productName, int price, String prodDescription, String category, int quantity, int saleType){
+    public Product(){this(0,"",0,"","",0, "None");}
+    public Product(int id, String productName, int price, String prodDescription, String category, int quantity, String saleType){
         this.id = id;
         this.productName = productName;
         this.price = price;
@@ -68,11 +68,11 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public int getSaleType() {
+    public String getSaleType() {
         return saleType;
     }
 
-    public void setSaleType(int saleType) {
+    public void setSaleType(String saleType) {
         this.saleType = saleType;
     }
 }

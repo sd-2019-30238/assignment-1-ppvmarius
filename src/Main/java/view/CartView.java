@@ -1,6 +1,5 @@
 package view;
 
-
 import bll.ProductBLL;
 import model.Product;
 
@@ -8,13 +7,9 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
-public class ClientView extends JFrame{
-    private JButton addItemButton = new JButton("Adauga produs in cos");
-    private JButton viewCart = new JButton("Vizualizeaza cosul");
-
+public class CartView extends JFrame{
     private JPanel dataPanel = new JPanel();
     private JPanel dataPanel1 = new JPanel();
-    private JPanel dataPanel2 = new JPanel();
     private JPanel fullPanel = new JPanel();
 
     private TableModel tableModel;
@@ -23,23 +18,17 @@ public class ClientView extends JFrame{
 
     private ProductBLL productBLL = new ProductBLL();
 
-    private ArrayList<Product> products;
-
-    private static int id = 1;
+//    private static int id = 1;
 
     /**
      * Creeaza fereastra pentru clienti.
      */
-    public ClientView(int id) {
-        this.setTitle("Clienti");
+    public CartView(ArrayList<Product> products) {
+        this.setTitle("Cart");
 
-        dataPanel2.add(addItemButton);
-        dataPanel2.add(viewCart);
         dataPanel.add(dataPanel1);
-        dataPanel.add(dataPanel2);
         dataPanel.setLayout(new BoxLayout(dataPanel, BoxLayout.Y_AXIS));
 
-        products = productBLL.getProducts();
         tableModel = View.createTableModel(Product.class, products);
 
         tabel = new JTable(tableModel);

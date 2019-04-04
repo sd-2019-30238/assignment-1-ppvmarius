@@ -2,11 +2,15 @@ package model;
 
 public class Order {
     private int id;
+    private int clientId;
     private String status;
+    private String description;
 
-    public Order(int id, String status){        //String products - pur si simplu le trec acolo.. produse, pret si cantitate!
+    public Order(int id, int clientId, String status, String description){
         this.id = id;
+        this.clientId = clientId;
         this.status = status;
+        this.description = description;
     }
 
     public int getId() {
@@ -17,11 +21,27 @@ public class Order {
         this.id = id;
     }
 
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

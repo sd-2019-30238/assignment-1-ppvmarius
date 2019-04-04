@@ -36,7 +36,7 @@ public class ProductDAO extends AbstractDAO<Product> {
             statement.setString(4, product.getProdDescription());
             statement.setString(5, product.getCategory());
             statement.setInt(6, product.getQuantity());
-            statement.setInt(7, product.getSaleType());
+            statement.setString(7, product.getSaleType());
             rezultat = statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.WARNING, "ProducttDAO:insert " + e.getMessage());
@@ -66,7 +66,7 @@ public class ProductDAO extends AbstractDAO<Product> {
             statement.setString(3, product.getProdDescription());
             statement.setString(4, product.getCategory());
             statement.setInt(5, product.getQuantity());
-            statement.setInt(6, product.getSaleType());
+            statement.setString(6, product.getSaleType());
             statement.setInt(7, product.getId());
             rezultat = statement.executeUpdate();
         } catch (SQLException e) {
