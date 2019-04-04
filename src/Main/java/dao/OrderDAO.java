@@ -12,6 +12,7 @@ import java.util.logging.Level;
 
 public class OrderDAO extends AbstractDAO<Order> {
     private static final String insertStatement = "INSERT INTO `order`(id, clientId, status, description) VALUES (?, ?, ?, ?)";
+    private static final String updateStatement = "UPDATE `order` SET clientId = ?, status = ?, description =? WHERE id = ?";
 
     public static int insertOrder(Order order) {
         int rezultat = 0;
@@ -26,6 +27,29 @@ public class OrderDAO extends AbstractDAO<Order> {
             statement.setInt(2, order.getClientId());
             statement.setString(3, order.getStatus());
             statement.setString(4, order.getDescription());
+            rezultat = statement.executeUpdate();
+        } catch (SQLException e) {
+            LOGGER.log(Level.WARNING, "OrderDAO:insert " + e.getMessage());
+        } finally {
+            ConnectionFactory.close(statement);
+            ConnectionFactory.close(connection);
+        }
+        return rezultat;
+    }
+
+    public static int updateOrder(Order order) {
+        int rezultat = 0;
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+
+        try {
+            connection = ConnectionFactory.getConnection();
+            statement = connection.prepareStatement(updateStatement);
+            statement.setInt(1, order.getClientId());
+            statement.setString(2, order.getStatus());
+            statement.setString(3, order.getDescription());
+            statement.setInt(4, order.getId());
             rezultat = statement.executeUpdate();
         } catch (SQLException e) {
             LOGGER.log(Level.WARNING, "OrderDAO:insert " + e.getMessage());

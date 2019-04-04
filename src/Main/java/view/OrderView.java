@@ -33,7 +33,6 @@ public class OrderView extends JFrame{
             return;
         }
 
-        System.out.println(orders);
         this.setTitle("Orders");
 
 

@@ -31,6 +31,7 @@ public class RegisterForm extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 Client client = new Client(1, textField1.getText(), textField2.getText(), textField3.getText(), Integer.parseInt(textField4.getText()), textField5.getText(), textField6.getText());
                 clientBLL.insertClient(client);
+                JOptionPane.showMessageDialog(null, "Account created successfully!");
                 setVisible(false);
             }
         });

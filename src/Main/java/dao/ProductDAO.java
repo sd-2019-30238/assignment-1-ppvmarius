@@ -5,7 +5,9 @@ import model.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 
 
@@ -76,5 +78,25 @@ public class ProductDAO extends AbstractDAO<Product> {
             ConnectionFactory.close(connection);
         }
         return rezultat;
+    }
+
+    public ArrayList<Product> findBySaleType(String saleType) {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        String query = "Select * from `product` where saleType = ?";
+        try {
+            connection = ConnectionFactory.getConnection();
+            statement = connection.prepareStatement(query);
+            statement.setString(1, saleType);
+            resultSet = statement.executeQuery();
+            return createObjects(resultSet);
+        } catch (SQLException e) {
+        } finally {
+            ConnectionFactory.close(resultSet);
+            ConnectionFactory.close(statement);
+            ConnectionFactory.close(connection);
+        }
+        return null;
     }
 }

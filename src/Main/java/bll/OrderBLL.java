@@ -36,6 +36,12 @@ public class OrderBLL {
         }
     }
 
+    public void updateOrder(Order order){
+        if(OrderDAO.updateOrder(order) == 0){
+            System.out.println("The client does not exist!");
+        }
+    }
+
     public ArrayList<Order> getClientOrders(int clientId){
         OrderDAO orderDAO = new OrderDAO();
         ArrayList<Order> orders = orderDAO.findByClientId(clientId);

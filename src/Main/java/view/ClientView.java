@@ -20,6 +20,9 @@ public class ClientView extends JFrame{
     private JButton viewCart = new JButton("Vizualizeaza cosul");
     private JButton viewOrders = new JButton("Vizualizeaza comenzi");
     private JButton placeOrderButton = new JButton("Plaseaza comanda");
+    private JButton filterButton = new JButton("Filtreaza");
+    private String[] options = {"all", "20%", "50%", "1+1"};
+    private JComboBox filterComboBox = new JComboBox(options);
 
     private JPanel dataPanel = new JPanel();
     private JPanel dataPanel1 = new JPanel();
@@ -46,6 +49,8 @@ public class ClientView extends JFrame{
     public ClientView(int idClient) {
         this.setTitle("Clienti");
 
+        dataPanel1.add(filterComboBox);
+        dataPanel1.add(filterButton);
         dataPanel2.add(viewOrders);
         dataPanel2.add(addItemButton);
         dataPanel2.add(viewCart);
@@ -54,7 +59,12 @@ public class ClientView extends JFrame{
         dataPanel.add(dataPanel2);
         dataPanel.setLayout(new BoxLayout(dataPanel, BoxLayout.Y_AXIS));
 
-        products = productBLL.getProducts();
+        if(String.valueOf(filterComboBox.getSelectedItem()).equals("all")){
+            products = productBLL.getProducts();
+        }else{
+            products = productBLL.findBySaleType(String.valueOf(filterComboBox.getSelectedItem()));
+        }
+//        System.out.println(products + String.valueOf(filterComboBox.getSelectedItem()));
         tableModel = View.createTableModel(Product.class, products);
 
         tabel = new JTable(tableModel);
@@ -104,7 +114,7 @@ public class ClientView extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 int sum = 0;
                 for(Product prod: shoppingCart.getShopItems()){
-                    productBLL.updateProduct(new Product(prod.getId(), prod.getProductName(), prod.getPrice(), prod.getProdDescription(), prod.getCategory(), productBLL.findById(prod.getId()).getQuantity() - prod.getQuantity(), prod.getSaleType()));
+                    productBLL.updateProduct(new Product(prod.getId(), prod.getProductName(), productBLL.findById(prod.getId()).getPrice(), prod.getProdDescription(), prod.getCategory(), productBLL.findById(prod.getId()).getQuantity() - prod.getQuantity(), prod.getSaleType()));
                     sum += prod.getPrice();
                 }
                 orderBLL.insertOrder(1, idClient, "Pending", "Value" + sum);
@@ -120,11 +130,24 @@ public class ClientView extends JFrame{
                 OrderView orderView = new OrderView(idClient);
             }
         });
+
+        filterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                drawTable();
+            }
+        });
     }
 
     private void drawTable() {
         this.remove(fullPanel);
-        products = productBLL.getProducts();
+        if(String.valueOf(filterComboBox.getSelectedItem()).equals("all")){
+            products = productBLL.getProducts();
+        }else{
+            products = productBLL.findBySaleType(String.valueOf(filterComboBox.getSelectedItem()));
+        }
+//        System.out.println(products + String.valueOf(filterComboBox.getSelectedItem()));
+
         tableModel = View.createTableModel(Product.class, products);
         tabel = new JTable(tableModel);
         pane = new JScrollPane(tabel);

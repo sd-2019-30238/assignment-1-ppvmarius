@@ -74,4 +74,11 @@ public class ProductBLL {
         ArrayList<Product> products = productDAO.getObjects();
         return products;
     }
+
+    public ArrayList<Product> findBySaleType(String saleType){
+        ProductDAO productDAO = new ProductDAO();
+        ArrayList<Product> products = productDAO.findBySaleType(saleType);
+        System.out.println(products);
+        return products;
+    }
 }
