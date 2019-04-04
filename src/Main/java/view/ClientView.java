@@ -1,6 +1,7 @@
 package view;
 
 
+import bll.OrderBLL;
 import bll.ProductBLL;
 import model.DiscountFactory;
 import model.Product;
@@ -18,6 +19,7 @@ public class ClientView extends JFrame{
     private JButton addItemButton = new JButton("Adauga produs in cos");
     private JButton viewCart = new JButton("Vizualizeaza cosul");
     private JButton viewOrders = new JButton("Vizualizeaza comenzi");
+    private JButton placeOrderButton = new JButton("Plaseaza comanda");
 
     private JPanel dataPanel = new JPanel();
     private JPanel dataPanel1 = new JPanel();
@@ -31,7 +33,10 @@ public class ClientView extends JFrame{
     private ProductBLL productBLL = new ProductBLL();
     private ShoppingCart shoppingCart = new ShoppingCart();
     private DiscountFactory discountFactory = new DiscountFactory();
+
     private ArrayList<Product> products;
+
+    private OrderBLL orderBLL = new OrderBLL();
 
     private static int id = 1;
 
@@ -44,6 +49,7 @@ public class ClientView extends JFrame{
         dataPanel2.add(viewOrders);
         dataPanel2.add(addItemButton);
         dataPanel2.add(viewCart);
+        dataPanel2.add(placeOrderButton);
         dataPanel.add(dataPanel1);
         dataPanel.add(dataPanel2);
         dataPanel.setLayout(new BoxLayout(dataPanel, BoxLayout.Y_AXIS));
@@ -79,6 +85,7 @@ public class ClientView extends JFrame{
                 try {
                     Product tempProd = productBLL.findById(id);
                     shoppingCart.addProduct(discountFactory.getDiscount(tabel.getValueAt(tabel.getSelectedRow(), 6).toString()).getCartItem(tempProd));
+                    JOptionPane.showMessageDialog(null, "Added succesfully!");
                 } catch (NumberFormatException f) {
                     JOptionPane.showMessageDialog(null, "Not good!");
                 }
@@ -89,6 +96,20 @@ public class ClientView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 CartView cartView = new CartView(shoppingCart.getShopItems());
+            }
+        });
+
+        placeOrderButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int sum = 0;
+                for(Product prod: shoppingCart.getShopItems()){
+                    productBLL.updateProduct(new Product(prod.getId(), prod.getProductName(), prod.getPrice(), prod.getProdDescription(), prod.getCategory(), productBLL.findById(prod.getId()).getQuantity() - prod.getQuantity(), prod.getSaleType()));
+                    sum += prod.getPrice();
+                }
+                orderBLL.insertOrder(1, idClient, "Pending", "Value" + sum);
+                drawTable();
+                shoppingCart.removeAllProducts();
             }
         });
     }

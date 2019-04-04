@@ -14,7 +14,7 @@ import java.util.logging.Level;
  */
 public class ProductDAO extends AbstractDAO<Product> {
     private static final String insertStatement = "INSERT INTO `product`(id, productName, price, prodDescription, category, quantity, saleType) VALUES (?, ?, ?, ?, ?, ?)";
-    private static final String updateStatement = "UPDATE `product` SET productName=?, price=?, prodDescription=?, category=?, quantity?, saleType=? WHERE id = ?";
+    private static final String updateStatement = "UPDATE `product` SET productName=?, price=?, prodDescription=?, category=?, quantity=?, saleType=? WHERE id = ?";
 
     /**
      * Insereaza un produs in baza de date

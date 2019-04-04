@@ -36,4 +36,5 @@ public class ShoppingCart {
     public void removeAllProducts(){
         shopItems.clear();
     }
+
 }

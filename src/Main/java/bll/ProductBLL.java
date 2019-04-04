@@ -32,7 +32,7 @@ public class ProductBLL {
      */
     public void updateProduct(Product product) {
         if (ProductDAO.updateProduct(product) == 0)
-            System.out.println("The product does not exist!");
+            System.out.println("The product does not exist!" + product.getId());
     }
 
     /**

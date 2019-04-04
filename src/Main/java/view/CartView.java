@@ -28,6 +28,10 @@ public class CartView extends JFrame{
      * Creeaza fereastra pentru clienti.
      */
     public CartView(ArrayList<Product> products) {
+        if(products == null){
+            JOptionPane.showMessageDialog(null, "Cosul este gol");
+            return;
+        }
         this.setTitle("Cart");
 
         dataPanel1.add(backButton);

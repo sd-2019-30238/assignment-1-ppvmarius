@@ -6,6 +6,9 @@ public class Order {
     private String status;
     private String description;
 
+    public Order(){
+        this(0,0,"","");
+    }
     public Order(int id, int clientId, String status, String description){
         this.id = id;
         this.clientId = clientId;
