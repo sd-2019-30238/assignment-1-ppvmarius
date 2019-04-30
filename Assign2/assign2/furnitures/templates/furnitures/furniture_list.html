@@ -1,10 +1,16 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Welcome to our shop</title>
-  </head>
-  <body>
-    <h2>This is the list of available products:</h2>
-  </body>
-</html>
+{% extends 'base_layout.html' %}
+{% block content %}
+  <h2>This is the list of available products:</h2>
+  <div class="furnitures">
+    {% for furniture in furnitures %}
+      <div class="furniture">
+        <h2><a href="#">{{ furniture.name }}</a></h2>
+        <p>{{ furniture.getSnippet }}
+        <p>Old price: {{ furniture.oldPrice }}
+        <p>New price: {{ furniture.newPrice }}
+        <p>Sale type: {{ furniture.saleType }}
+        <p>Available quantity: {{ furniture.quantity }}
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
