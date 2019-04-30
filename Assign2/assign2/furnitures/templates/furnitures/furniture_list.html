@@ -4,7 +4,7 @@
   <div class="furnitures">
     {% for furniture in furnitures %}
       <div class="furniture">
-        <h2><a href="#">{{ furniture.name }}</a></h2>
+        <h2><a href="{% url 'detail' slug=furniture.slug %}">{{ furniture.name }}</a></h2>
         <p>{{ furniture.getSnippet }}
         <p>Old price: {{ furniture.oldPrice }}
         <p>New price: {{ furniture.newPrice }}
