@@ -13,7 +13,7 @@ class Furniture(models.Model):
     newPrice = models.PositiveIntegerField()
     saleType = models.CharField(max_length=10)
     quantity = models.PositiveIntegerField()
-    image = models.ImageField(blank=True)
+    thumb = models.ImageField(default='rio_img.png',blank=True)
 
     def __str__(self):
         return self.name

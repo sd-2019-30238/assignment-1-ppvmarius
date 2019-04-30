@@ -1,0 +1,15 @@
+{% extends 'base_layout.html' %}
+
+{% block content %}
+<div class="furniture-detail">
+  <div class="furniture">
+    <h2>{{ furniture.name }}</h2>
+    <p>{{ furniture.description }}</p>
+    <p>{{ furniture.oldPrice }}</p>
+    <p>{{ furniture.newPrice }}</p>
+    <p>{{ furniture.saleType }}</p>
+    <p>{{ furniture.quantity }}</p>
+    <img src="{{ furniture.thumb.url }}"/>
+  </div>
+</div>
+{% endblock %}

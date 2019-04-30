@@ -11,4 +11,6 @@ def furniture_list(request):
     return render(request, 'furnitures/furniture_list.html', {'furnitures': furnitures})
 
 def furniture_detail(request, slug):
-    return HttpResponse(slug)
+    # return HttpResponse(slug)
+    furniture = Furniture.objects.get(slug=slug)
+    return render(request, 'furnitures/furniture_detail.html', {'furniture':furniture})

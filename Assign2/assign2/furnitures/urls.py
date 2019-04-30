@@ -1,6 +1,7 @@
 from django.conf.urls import url
-from django.contrib import admin
 from . import views
+
+app_name = 'furnitures'
 
 urlpatterns = [
     url(r'^$', views.furniture_list, name="list"),
