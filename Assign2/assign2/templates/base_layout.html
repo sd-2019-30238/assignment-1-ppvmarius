@@ -9,15 +9,21 @@
   </head>
   <body>
     <div class="wrapper">
-      <h1><a href="{% url 'furnitures:list' %}"><img src="{% static 'logo.jpg' %}" width="5%" height="10%"/></a></h1>
+      {% if user.is_authenticated %}
+        <h1><a href="{% url 'furnitures:list' %}"><img src="{% static 'logo.jpg' %}" width="5%" height="10%"/></a></h1>
+      {% else %}
+        <h1><a href="{% url 'homepage' %}"><img src="{% static 'logo.jpg' %}" width="5%" height="10%"/></a></h1>
+      {% endif %}
       <nav>
         <ul>
+          {% if user.is_authenticated %}
           <li>
             <form class="logout-link" action="{% url 'accounts:logout' %}" method="post">
               {% csrf_token %}
               <button type="submit">Logout</button>
             </form>
           </li>
+          {% endif %}
         </ul>
       </nav>
       {% block content %}
