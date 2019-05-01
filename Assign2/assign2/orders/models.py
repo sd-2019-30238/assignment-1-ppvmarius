@@ -10,6 +10,6 @@ from furnitures import models as furnitureModels
 class Order(models.Model):
     client = models.ForeignKey(User, default=None)
     furniture = models.ForeignKey(furnitureModels.Furniture, default=None)
-
+    status = models.CharField(max_length=50)
     def __str__(self):
         return str(self.id)
