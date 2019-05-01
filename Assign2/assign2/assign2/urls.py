@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls')),
     url(r'^furnitures/', include('furnitures.urls')),
+    url(r'^orders/', include('orders.urls')),
     url(r'^$', views.homepage),
 ]
 
