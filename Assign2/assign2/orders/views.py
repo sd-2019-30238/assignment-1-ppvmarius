@@ -10,8 +10,13 @@ def add_order(request):
     if request.method == 'POST':
         if 'product' in request.POST:
             order = Order()
-            order.furniture = furnitureModels.Furniture.objects.get(slug=request.POST.get('product'))
+            temp_furniture = furnitureModels.Furniture.objects.get(slug=request.POST.get('product'))
+            temp_furniture.quantity = temp_furniture.quantity - 1
+            temp_furniture.save()
+            print temp_furniture.quantity
+            order.furniture = temp_furniture
             order.client = request.user
+            order.status = "Unconfirmed"
             order.save()
         return render(request, 'orders/addedOrder.html')
 
