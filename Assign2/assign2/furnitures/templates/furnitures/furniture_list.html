@@ -1,5 +1,14 @@
 {% extends 'base_layout.html' %}
 {% block content %}
+  <form class="filter-items" action="{% url 'furnitures:list' %}" method="post">
+    {% csrf_token %}
+    <select class="filters" name="filter">
+      <option value="name">Name</option>
+      <option value="price">Price</option>
+      <option value="saleType">Sale type</option>
+    </select>
+    <input type="submit" value="Filter">
+  </form>
   <h2>This is the list of available products:</h2>
   <div class="furnitures">
     {% for furniture in furnitures %}
