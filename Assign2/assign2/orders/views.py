@@ -22,6 +22,7 @@ def add_order(request):
 
 def list_orders(request):
     orders = Order.objects.all().order_by('id')
+    orders = [item for item in orders if request.user == item.client]
     return render(request, 'orders/list_orders.html', {'orders':orders})
 
 def order_details(request,id):

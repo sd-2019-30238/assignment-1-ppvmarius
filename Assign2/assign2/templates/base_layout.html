@@ -23,6 +23,12 @@
               <button type="submit">Logout</button>
             </form>
           </li>
+          <li>
+            <form class="order-link" action="{% url 'orders:list' %}" method="get">
+              {% csrf_token %}
+              <button type="submit">Orders</button>
+            </form>
+          </li>
           {% endif %}
         </ul>
       </nav>
