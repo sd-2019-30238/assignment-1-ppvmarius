@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from furnitures import models as furnitureModels
 from .models import Order
 # Create your views here.
@@ -22,9 +22,17 @@ def add_order(request):
 
 def list_orders(request):
     orders = Order.objects.all().order_by('id')
-    orders = [item for item in orders if request.user == item.client]
+    if not request.user.is_staff:
+        orders = [item for item in orders if request.user == item.client]
     return render(request, 'orders/list_orders.html', {'orders':orders})
 
 def order_details(request,id):
     order = Order.objects.get(id=id)
     return render(request, 'orders/order_details.html', {'order':order})
+
+def modify_order(request):
+    if request.method == 'POST':
+        order = Order.objects.get(id=request.POST.get('order_id'))
+        order.status = request.POST.get('current_status')
+        order.save()
+    return redirect('orders:list')
