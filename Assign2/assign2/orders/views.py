@@ -41,5 +41,4 @@ def modify_order(request):
         order.status = request.POST.get('current_status')
         order.save()
         observable.Notify(order.id)
-        print observable.obs_list
     return redirect('orders:list')
