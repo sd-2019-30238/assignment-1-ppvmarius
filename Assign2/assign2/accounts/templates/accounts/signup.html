@@ -5,6 +5,9 @@
   <form class="site-form" action="{% url 'accounts:signup' %}" method="post">
     {% csrf_token %}
     {{ form }}
+    <h3>Enter your mail:</h3>
+    <input type="text" name="email">
+    <h3>Submit</h3>
     <input type="submit" value="Signup">
   </form>
 {% endblock %}

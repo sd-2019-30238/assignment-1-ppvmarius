@@ -9,7 +9,9 @@ def signup_view(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
+            user = form.save(commit=False)
+            user.email = request.POST.get('email')
+            user.save()
             login(request, user)
             return redirect('furnitures:list')
     else:
