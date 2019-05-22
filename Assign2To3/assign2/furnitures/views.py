@@ -11,10 +11,10 @@ mediator = Mediator()
 def furniture_list(request):
     # supposing we use this as a controller
     if request.method == 'POST':
-        reqAll = RequestAllFurnitures(request.POST.get('filter'))
+        reqAll = RequestAllFurnitures(request, request.POST.get('filter'))
         return mediator.mediate(reqAll)
     else:
-        reqAll = RequestAllFurnitures(request.POST.get('name'))
+        reqAll = RequestAllFurnitures(request, "name")
         return mediator.mediate(reqAll)
 
 def furniture_detail(request, slug):
