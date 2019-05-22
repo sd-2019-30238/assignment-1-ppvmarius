@@ -1,0 +1,24 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+<div class="order-detail">
+  <div class="order">
+    <h2>ID: {{ order.id }}</h2>
+    <p>Client: {{ order.client.username }}
+    <p>Furniture: {{ order.furniture.name }}
+    <p>Total: {{ order.furniture.newPrice }}
+    <p>Placed on: {{ order.date }}
+    <p>Status: {{ order.status }}
+    {% if user.is_staff %}
+    <form class="edit-form" action="{% url 'orders:modify' %}" method="post">
+      {% csrf_token %}
+      <select class="options" name="current_status">
+        <option value="unconfirmed">Unconfirmed</option>
+        <option value="confirmed">Confirmed</option>
+      </select>
+      <input type="hidden" name="order_id" value={{ order.id }}>
+      <input type="submit" value="Modify">
+    </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

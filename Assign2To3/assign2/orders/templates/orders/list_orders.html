@@ -1,0 +1,11 @@
+{% extends 'base_layout.html' %}
+{% block content %}
+  <h2>This is the list of orders:</h2>
+  <div class="orders">
+    {% for order in orders %}
+      <div class="order">
+        <h2><a href="{% url 'orders:detail' id=order.id %}">Order: {{ order.id }}. User: {{ order.client.username }}</a></h2>
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
