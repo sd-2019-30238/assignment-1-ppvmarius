@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from .models import Furniture
 from django.http import HttpResponse
-from .utile import RequestAllFurnitures, Mediator
+from assign2.utile import RequestAllFurnitures, RequestSpecificFurniture, Mediator
 # Create your views here.
 mediator = Mediator()
 
@@ -18,6 +18,5 @@ def furniture_list(request):
         return mediator.mediate(reqAll)
 
 def furniture_detail(request, slug):
-    # return HttpResponse(slug)
-    furniture = Furniture.objects.get(slug=slug)
-    return render(request, 'furnitures/furniture_detail.html', {'furniture':furniture})
+    reqSpec = RequestSpecificFurniture(request, slug)
+    return mediator.mediate(reqSpec)

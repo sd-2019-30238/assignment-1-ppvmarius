@@ -5,40 +5,36 @@ from django.shortcuts import render, redirect
 from furnitures import models as furnitureModels
 from .models import Order
 from .utile import Observable
+from assign2.utile import ModifyFurnitureQuantityQuery, AddOrderRequest, RequestAllOrders, RequestSpecificOrder, RequestModifySpecificOrder, Mediator
+
 # Create your views here.
 
-observable = Observable()
+# observable = Observable()
+mediator = Mediator()
 
 def add_order(request):
     if request.method == 'POST':
         if 'product' in request.POST:
-            order = Order()
-            temp_furniture = furnitureModels.Furniture.objects.get(slug=request.POST.get('product'))
-            temp_furniture.quantity = temp_furniture.quantity - 1
-            temp_furniture.save()
-            order.furniture = temp_furniture
-            order.client = request.user
-            order.status = "Unconfirmed"
-            order.save()
-            observable.attach(order)
+            modifFurnQuery = ModifyFurnitureQuantityQuery(request.POST.get('product'))
+            mediator.mediate(modifFurnQuery)
+            addReq = AddOrderRequest(request.POST.get('product'), request.user, "unconfirmed")
+            mediator.mediate(addReq)
+            # observable.attach(order)
         return render(request, 'orders/addedOrder.html')
 
 def list_orders(request):
-    orders = Order.objects.all().order_by('id')
-    for order in orders:
-        observable.attach(order)
-    if not request.user.is_staff:
-        orders = [item for item in orders if request.user == item.client]
-    return render(request, 'orders/list_orders.html', {'orders':orders})
+    reqAllOrd = RequestAllOrders(request, 'id')
+    return mediator.mediate(reqAllOrd)
+    # for order in orders:
+        # observable.attach(order)
 
 def order_details(request,id):
-    order = Order.objects.get(id=id)
-    return render(request, 'orders/order_details.html', {'order':order})
+    reqSpecOrd = RequestSpecificOrder(request, id)
+    return mediator.mediate(reqSpecOrd)
 
 def modify_order(request):
     if request.method == 'POST':
-        order = Order.objects.get(id=request.POST.get('order_id'))
-        order.status = request.POST.get('current_status')
-        order.save()
-        observable.Notify(order.id)
+        reqModifOrder = RequestModifySpecificOrder(request.POST.get('order_id'),request.POST.get('current_status'))
+        mediator.mediate(reqModifOrder)
+        # observable.Notify(order.id)
     return redirect('orders:list')
