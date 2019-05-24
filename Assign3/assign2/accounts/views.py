@@ -3,20 +3,18 @@ from __future__ import unicode_literals
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout
+from .utile import SignupRequest, Mediator
 # Create your views here.
+
+mediator = Mediator()
 
 def signup_view(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False)
-            user.email = request.POST.get('email')
-            user.save()
-            login(request, user)
-            return redirect('furnitures:list')
+        signUpReq = SignupRequest(request, UserCreationForm(request.POST), request.POST.get('email'))
+        return mediator.mediate(signUpReq)
     else:
         form = UserCreationForm()
-    return render(request, 'accounts/signup.html', {'form':form})
+        return render(request, 'accounts/signup.html', {'form':form})
 
 def login_view(request):
     if request.method == 'POST':
@@ -32,4 +30,4 @@ def login_view(request):
 def logout_view(request):
     if request.method == 'POST':
         logout(request)
-        return redirect('homepage')
+    return redirect('homepage')

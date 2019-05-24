@@ -4,20 +4,19 @@ from __future__ import unicode_literals
 from django.shortcuts import render
 from .models import Furniture
 from django.http import HttpResponse
-from .utile import FurnitureQueryService, FurnitureCommandService
+from assign2.utile import RequestAllFurnitures, RequestSpecificFurniture, Mediator
 # Create your views here.
-
-furnitureQuery = FurnitureQueryService()
-furnitureCommand = FurnitureCommandService()
+mediator = Mediator()
 
 def furniture_list(request):
+    # supposing we use this as a controller
     if request.method == 'POST':
-        furnitures = furnitureQuery.getFurnitures(request.POST.get('filter'))
+        reqAll = RequestAllFurnitures(request, request.POST.get('filter'))
+        return mediator.mediate(reqAll)
     else:
-        furnitures =  furnitureQuery.getFurnitures('name')
-    return render(request, 'furnitures/furniture_list.html', {'furnitures': furnitures})
+        reqAll = RequestAllFurnitures(request, "name")
+        return mediator.mediate(reqAll)
 
 def furniture_detail(request, slug):
-    # return HttpResponse(slug)
-    furniture = furnitureQuery.getFurniture(slug=slug)
-    return render(request, 'furnitures/furniture_detail.html', {'furniture':furniture})
+    reqSpec = RequestSpecificFurniture(request, slug)
+    return mediator.mediate(reqSpec)

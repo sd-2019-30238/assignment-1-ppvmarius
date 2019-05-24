@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from furnitures.models import Furniture
-from orders.models import Order
+from orders.models import Order, TigaieDecorator, TacamuriDecorator
 
 class RequestAllFurnitures:
     def __init__(self, request, filterType="name"):
@@ -47,16 +47,19 @@ class ModifyFurnitureQuantityQueryHandle:
 
 
 class AddOrderRequest:
-    def __init__(self, furnitureSlug, user, status):
+    def __init__(self, furnitureSlug, user, status, bonus):
         self.furnitureSlug = furnitureSlug
         self.user = user
         self.status = status
+        self.bonus = bonus
     def getFurnitureSlug(self):
         return self.furnitureSlug
     def getUser(self):
         return self.user
     def getStatus(self):
         return self.status
+    def getBonus(self):
+        return self.bonus
 
 class AddOrderRequestHandle:
     def handle(self, requestObj):
@@ -64,7 +67,18 @@ class AddOrderRequestHandle:
         order.furniture = Furniture.objects.get(slug=requestObj.getFurnitureSlug())
         order.client = requestObj.getUser()
         order.status = requestObj.getStatus()
-        order.save()
+        # order.save()
+        if "faraBonus" in requestObj.getBonus():
+            order.bonus = "Nu are bonus"
+            order.save()
+        elif "tigaie" in requestObj.getBonus():
+            decoratedOrder = TigaieDecorator(order)
+            (decoratedOrder.order).save()
+        else:
+            decoratedOrder = TacamuriDecorator(order)
+            (decoratedOrder.order).save()
+
+
 
 
 class RequestAllOrders:

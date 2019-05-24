@@ -17,14 +17,3 @@ class Observable:
     def Notify(self, order_id):
         for observer in self.obs_list:
             observer.update(order_id)
-
-class OrderQueryService:
-    def getOrder(self, id):
-        return Order.objects.get(id=id)
-
-    def getOrders(self, ordered_by="id"):
-        return Order.objects.all().order_by(ordered_by)
-
-class OrderCommandService:
-    def saveOrder(self, orderInstance):
-            orderInstance.save()

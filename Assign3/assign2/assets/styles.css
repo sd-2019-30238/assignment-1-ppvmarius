@@ -3,10 +3,12 @@ body{
     background-image: url(back.png);
     background-repeat-y: no-repeat;
     color: #fff;
+    /* font-size: 28px; */
 }
 
 body *{
     font-family: Ubuntu;
+    /* font-size: 28px; */
 }
 
 h1, h2, h3, h4, h5{

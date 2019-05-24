@@ -13,6 +13,11 @@
     <form class="order-form" action="{% url 'orders:add_order' %}" method="post">
       {% csrf_token %}
       <input type="hidden" name="product" value={{ furniture.slug }}>
+      <select class="options" name="bonus">
+        <option value="faraBonus">None</option>
+        <option value="tigaie">Tigaie Tefal 26cm</option>
+        <option value="tacamuri">Set 24 tacamuri</option>
+      </select>
       <input type="submit" value="Add Order">
     </form>
   </div>
